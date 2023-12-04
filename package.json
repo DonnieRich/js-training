@@ -1,0 +1,28 @@
+{
+    "name": "@donnie_rich/js-training",
+    "version": "0.0.1",
+    "description": "A basic set of JS snacks for junior devs",
+    "main": "index.mjs",
+    "type": "module",
+    "scripts": {
+        "help": "node ./index.mjs -h",
+        "info": "node ./index.mjs -i",
+        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+    },
+    "keywords": [
+        "js"
+    ],
+    "author": "Donnie Rich",
+    "license": "ISC",
+    "devDependencies": {
+        "@babel/core": "^7.23.5",
+        "jest": "^29.7.0"
+    },
+    "dependencies": {
+        "commander": "^11.1.0"
+    },
+    "jest": {
+        "testEnvironment": "jest-environment-node",
+        "transform": {}
+    }
+}
