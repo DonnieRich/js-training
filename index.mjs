@@ -19,8 +19,8 @@ if (options.infoSnack) {
     const snack = snacks[snackName];
     snack.info();
     console.log(`
-        To test your solution for ${snackName} run the following command:
-        npm run test -- ${snackName}
+    To test your solution for ${snackName} run the following command:
+    npm run test -- ${snackName}
     `);
 }
 if (options.help) {
