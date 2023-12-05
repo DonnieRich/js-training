@@ -7,7 +7,7 @@
     "scripts": {
         "help": "node ./index.mjs -h",
         "info": "node ./index.mjs -i",
-        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js"
+        "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --t "
     },
     "keywords": [
         "js"
