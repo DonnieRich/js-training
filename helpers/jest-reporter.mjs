@@ -20,31 +20,36 @@ export default class CustomReporterWrapper {
     }
 
     onTestResult(testRunConfig, testResults, runResults) {
-        // console.log("#########################");
-        // console.log(testResults);
-        // console.log("#########################");
-
         let results = [];
 
         if (!testResults.skipped) {
             results = testResults.testResults.map(result => {
 
-                const reasons = [];
+                let reasons = "";
                 result.failureMessages.forEach(message => {
 
                     let expected = message.match(/Expected.*/);
                     let received = message.match(/Received.*/)
 
                     if (expected) {
-                        reasons.push(`${expected}`);
+                        reasons += `${expected}\n`;
                     }
 
                     if (received) {
-                        reasons.push(`${received}`);
+                        reasons += `${received}\n`;
                     }
 
                 });
-                return `\n${chalk.bgRed.bold(result.title)} ${result.status}:\n${reasons.join('\n')}\n`;
+
+                let message = `${result.title} ${result.status.toUpperCase()}\n`;
+
+                if (result.status === "failed") {
+                    message = chalk.bgRed.bold(message);
+                } else {
+                    message = chalk.bgGreen.bold.white(message);
+                }
+
+                return `${message}${reasons}`;
             });
         }
 
