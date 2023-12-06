@@ -1,6 +1,6 @@
-import snack from "../../snacks/snack-1.mjs";
+import snack from "../snack.mjs";
 
-describe('Testing reverse string snack...', () => {
+describe('reverseString', () => {
 
     test.each([
         { number: 1, string: "Hello World!", expected: "!dlroW olleH" },
@@ -9,7 +9,7 @@ describe('Testing reverse string snack...', () => {
         { number: 201, string: "No problem", expected: "melborp oN" },
         { number: 202, string: "AbcDeFgHiJkLm", expected: "AbcDeFgHiJkLm" },
         { number: 1237, string: "uVwxYz", expected: "zYxwVu" },
-    ])('snack($number, $string)', ({ number, string, expected }) => {
+    ])('reverseString($number, $string)', ({ number, string, expected }) => {
         const result = snack.solution(number, string);
         expect(result).toBe(expected);
     });

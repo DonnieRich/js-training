@@ -1,6 +1,6 @@
-import snack from "../../snacks/snack-2.mjs";
+import snack from "../snack.mjs";
 
-describe('Testing snack #2...', () => {
+describe('multiSum', () => {
 
     test.each([
         { numbers: [1, 2, 3, 4], expected: 20 },
@@ -10,7 +10,7 @@ describe('Testing snack #2...', () => {
         { numbers: [-2, -11], expected: -26 },
         { numbers: [-4, 50], expected: 92 },
         { numbers: [], expected: 0 },
-    ])('snack($numbers)', ({ numbers, expected }) => {
+    ])('multiSum($numbers)', ({ numbers, expected }) => {
         const result = snack.solution(numbers);
         expect(result).toBe(expected);
     });
