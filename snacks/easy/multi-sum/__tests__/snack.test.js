@@ -1,4 +1,13 @@
-import snack from "../snack.js";
+let snack;
+
+if (process.env.NODE_ENV == "training") {
+    const { default: solution } = await import("../snack.js");
+    snack = solution;
+} else {
+    const { default: solution } = await import("../.solution/snack.js");
+    snack = solution;
+}
+
 
 describe('multiSum', () => {
 
