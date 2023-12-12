@@ -2,11 +2,11 @@
     "name": "@donnie_rich/js-training",
     "version": "0.0.1",
     "description": "A basic set of JS snacks for junior devs",
-    "exports": "./index.mjs",
+    "exports": "./index.js",
     "type": "module",
     "scripts": {
-        "help": "node ./index.mjs -h",
-        "info": "node ./index.mjs -i",
+        "help": "node ./index.js -h",
+        "info": "node ./index.js -i",
         "test": "node --experimental-vm-modules node_modules/jest/bin/jest.js --t "
     },
     "keywords": [
@@ -26,7 +26,7 @@
         "testEnvironment": "jest-environment-node",
         "transform": {},
         "reporters": [
-            "./helpers/jest-reporter.mjs"
+            "./helpers/jest-reporter.js"
         ]
     }
 }
