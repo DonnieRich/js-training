@@ -9,7 +9,7 @@
         "info": "node ./index.js -i",
         "test": "cross-env NODE_ENV='training' node --experimental-vm-modules node_modules/jest/bin/jest.js --t ",
         "ci": "cross-env NODE_ENV='development' node --experimental-vm-modules node_modules/jest/bin/jest.js --t ",
-        "full ci": "cross-env NODE_ENV='development' node --experimental-vm-modules node_modules/jest/bin/jest.js"
+        "full-ci": "cross-env NODE_ENV='development' node --experimental-vm-modules node_modules/jest/bin/jest.js"
     },
     "keywords": [
         "js"
