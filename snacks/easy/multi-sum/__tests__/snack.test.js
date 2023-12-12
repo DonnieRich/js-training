@@ -1,4 +1,4 @@
-import snack from "../snack.mjs";
+import snack from "../snack.js";
 
 describe('multiSum', () => {
 
