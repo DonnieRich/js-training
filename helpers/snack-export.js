@@ -1,7 +1,13 @@
-import reverseString from "../snacks/easy/reverse-string/snack.js";
-import multiSum from "../snacks/easy/multi-sum/snack.js";
+import { toKebabCase, difficultyExpand } from "./name-converter.js";
 
-export default {
-    reverseString,
-    multiSum
+const exporter = async (snackName) => {
+    const difficulty = difficultyExpand(snackName[0]);
+    // TODO: the function return a string with a prefix (-). This should be corrected.
+    const snackDir = toKebabCase(snackName.slice(1)).slice(1);
+
+    const snack = await import(`../snacks/${difficulty}/${snackDir}/snack.js`);
+
+    return snack.default;
 };
+
+export { exporter };

@@ -1,39 +1,54 @@
 #! /usr/bin/env node
 
-import { Command } from "commander";
-import { translateName } from "./helpers/name-converter.js";
-import snacks from "./helpers/snack-export.js";
+import { Command, Option } from "commander";
+import { snackNameForTest, toKebabCase } from "./helpers/name-converter.js";
+import { createScaffolding } from "./helpers/snack-creator.js";
+import { exporter } from "./helpers/snack-export.js";
+import chalk from 'chalk';
+const log = console.log;
 
 const program = new Command();
 
 program
-    .option('-i, --info-snack <name>', 'Get info for the selected snack')
-    .option('-c, --create-snack <name>', 'Create the scaffolding for a new snack')
-    .option('-h --help', 'To use this package you have to read the info for the snack you want to solve, add your code and then run the test for that snack');
+    .addOption(new Option('-i, --info-snack <name>', 'Get info for the selected snack'))
+    .addOption(new Option('-c, --create-snack <name>', 'Create the scaffolding for a new snack'))
+    .addOption(new Option('-d, --difficulty <difficulty>', 'Select snack difficulty').choices(['easy', 'e', 'medium', 'm', 'hard', 'h']).preset('easy'))
+    .addOption(new Option('-h, --help', 'To use this package you have to read the info for the snack you want to solve, add your code and then run the test for that snack'));
+
+program
+    .configureOutput({
+        outputError: (str, write) => write(chalk.red(str))
+    });
 
 program.parse(process.argv);
 
 const options = program.opts();
 if (options.infoSnack) {
-    const snackName = translateName(options.infoSnack);
-    console.log(`Getting info for: ${snackName}`);
-    const snack = snacks[snackName];
-    snack.info();
-    console.log(`
-    To test your solution for ${snackName} run the following command:
-    npm run test -- ${snackName}
-    `);
+    const difficulty = options.difficulty ?? 'easy';
+    const snackName = snackNameForTest(options.infoSnack, difficulty);
+    log(chalk.blue(`Getting info for: ${snackName}`));
+
+    exporter(snackName)
+        .then(snack => {
+            snack.info();
+            log(chalk.green(`To test your solution for ${snackName} run the following command:\nnpm run test -- ${snackName}`));
+        })
+        .catch(error => {
+            log(chalk.red(`Cannot find a snack namend ${options.infoSnack} for the selected difficulty level (${difficulty})`));
+        });
 }
 if (options.createSnack) {
-
+    const snackName = toKebabCase(options.createSnack);
+    const difficulty = options.difficulty ?? 'easy';
+    createScaffolding(snackName, difficulty);
 }
 if (options.help) {
-    console.log(`
+    log(chalk.blue(`
     To use this package you have to read the info for the snack you want to solve, add your code and then run the test for that snack.
     For example:
         - open snacks/easy/multi-sum/snack.js
         - read carefully the instructions with the input/output instructions
         - add your code in the solution function (NOTE: the function should return your solution)
         - run the corresponding test and check if your solution pass all the test cases
-    `);
+    `));
 }
