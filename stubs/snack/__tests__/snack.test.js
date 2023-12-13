@@ -22,7 +22,7 @@ describe('snackNameStub', () => {
      * Please remove this comment before submitting your snack.
      */
     test.each([
-        { param: null, expected: null }
+        { param: true, expected: true }
     ])('snackNameStub($param)', ({ param, expected }) => {
         const result = snack.solution(param);
         expect(result).toBe(expected);

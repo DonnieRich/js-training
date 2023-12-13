@@ -4,8 +4,8 @@
  * Only snack with passing tests will be accepted.
  * @returns 
  */
-const solution = () => {
-    return
+const solution = (param) => {
+    return param;
 };
 
 
