@@ -8,7 +8,7 @@ if (process.env.NODE_ENV == "training") {
     snack = solution;
 }
 
-describe('reverseString', () => {
+describe('eReverseString', () => {
 
     test.each([
         { number: 1, string: "Hello World!", expected: "!dlroW olleH" },
@@ -17,7 +17,7 @@ describe('reverseString', () => {
         { number: 201, string: "No problem", expected: "melborp oN" },
         { number: 202, string: "AbcDeFgHiJkLm", expected: "AbcDeFgHiJkLm" },
         { number: 1237, string: "uVwxYz", expected: "zYxwVu" },
-    ])('reverseString($number, $string)', ({ number, string, expected }) => {
+    ])('eReverseString($number, $string)', ({ number, string, expected }) => {
         const result = snack.solution(number, string);
         expect(result).toBe(expected);
     });

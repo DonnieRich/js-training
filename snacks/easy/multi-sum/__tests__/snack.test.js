@@ -9,7 +9,7 @@ if (process.env.NODE_ENV == "training") {
 }
 
 
-describe('multiSum', () => {
+describe('eMultiSum', () => {
 
     test.each([
         { numbers: [1, 2, 3, 4], expected: 20 },
@@ -19,7 +19,7 @@ describe('multiSum', () => {
         { numbers: [-2, -11], expected: -26 },
         { numbers: [-4, 50], expected: 92 },
         { numbers: [], expected: 0 },
-    ])('multiSum($numbers)', ({ numbers, expected }) => {
+    ])('eMultiSum($numbers)', ({ numbers, expected }) => {
         const result = snack.solution(numbers);
         expect(result).toBe(expected);
     });

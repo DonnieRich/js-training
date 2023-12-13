@@ -2,11 +2,12 @@
     "name": "@donnie_rich/js-training",
     "version": "0.0.1",
     "description": "A basic set of JS snacks for junior devs",
-    "exports": "./index.js",
+    "exports": null,
+    "bin": {
+        "snack": "./index.js"
+    },
     "type": "module",
     "scripts": {
-        "help": "node ./index.js -h",
-        "info": "node ./index.js -i",
         "test": "cross-env NODE_ENV='training' node --experimental-vm-modules node_modules/jest/bin/jest.js --t ",
         "ci": "cross-env NODE_ENV='development' node --experimental-vm-modules node_modules/jest/bin/jest.js --t ",
         "full-ci": "cross-env NODE_ENV='development' node --experimental-vm-modules node_modules/jest/bin/jest.js"
