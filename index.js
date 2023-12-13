@@ -1,7 +1,7 @@
 #! /usr/bin/env node
 
 import { Command, Option } from "commander";
-import { snackNameForTest, toKebabCase } from "./helpers/name-converter.js";
+import { snackNameForTest, toKebabCase, difficultyExpand } from "./helpers/name-converter.js";
 import { createScaffolding } from "./helpers/snack-creator.js";
 import { exporter } from "./helpers/snack-export.js";
 import chalk from 'chalk';
@@ -39,7 +39,12 @@ if (options.infoSnack) {
 }
 if (options.createSnack) {
     const snackName = toKebabCase(options.createSnack);
-    const difficulty = options.difficulty ?? 'easy';
+    let difficulty = options.difficulty ?? 'easy';
+
+    if (difficulty.length === 1) {
+        difficulty = difficultyExpand(difficulty);
+    }
+
     createScaffolding(snackName, difficulty);
 }
 if (options.help) {
