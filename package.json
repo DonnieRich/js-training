@@ -30,7 +30,6 @@
         "testEnvironment": "jest-environment-node",
         "transform": {},
         "reporters": [
-            "default",
             "./helpers/jest-reporter.js"
         ]
     }
