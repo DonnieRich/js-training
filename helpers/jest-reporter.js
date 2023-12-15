@@ -27,21 +27,29 @@ export default class CustomReporterWrapper {
                 let reasons = "";
 
                 result.failureDetails.forEach(detail => {
-                    const matcherResult = detail.matcherResult;
-                    const expected = chalk.green(JSON.stringify(matcherResult.expected));
-                    const actual = chalk.red(JSON.stringify(matcherResult.actual));
-                    reasons += `Expected: ${expected}\nReceived: ${actual}\nFailing to assert ${expected} ${matcherResult.name} ${actual}\n`;
+                    if (Object.keys(detail).length > 0) {
+                        const matcherResult = detail.matcherResult;
+                        const expected = chalk.green(JSON.stringify(matcherResult.expected));
+                        const actual = chalk.rgb(219, 88, 86)(JSON.stringify(matcherResult.actual));
+                        reasons += ` Expected: ${expected}\n Received: ${actual}\n Failing to assert ${expected} ${matcherResult.name} ${actual}\n`;
+                    }
                 });
 
-                let message = `${result.title} ${result.status.toUpperCase()} \n`;
+                const re = new RegExp(`${process.cwd().replace(/\\/g, "\\$&")}\\\\`, "g");
+                result.failureMessages.forEach(message => {
+                    const string = message.split('\n').filter((m, i) => i <= 1).map(m => ` ${m.replace(re, '')} `).join('\n');
+                    reasons += `${string}\n` //chalk.bgRgb(255, 150, 79).black(`${string}\n`);
+                })
+
+                let message = ` ${result.title} ${result.status.toUpperCase()} `;
 
                 if (result.status === "failed") {
-                    message = chalk.bgRed.bold(message);
+                    message = `${chalk.bgRgb(219, 88, 86).bold.black(message)} ❌`;
                 } else {
-                    message = chalk.bgGreen.bold.white(message);
+                    message = `${chalk.bgGreen.bold.black(message)} ✅`;
                 }
 
-                return `${message}${reasons}`;
+                return `${message}\n${reasons}`;
             });
         }
 
@@ -58,7 +66,7 @@ export default class CustomReporterWrapper {
         const successPercentage = Math.round((passed / totalTests) * 100);
 
         if (failed) {
-            log(chalk.red(`Failed ${failed} test${failed > 1 ? "s" : ""}`));
+            log(chalk.rgb(219, 88, 86)(`Failed ${failed} test${failed > 1 ? "s" : ""}`));
         }
 
         if (passed) {
@@ -67,9 +75,9 @@ export default class CustomReporterWrapper {
         }
 
         if (successPercentage < 60) {
-            log(chalk.red(`${successPercentage}% of tests passed...`));
+            log(chalk.rgb(219, 88, 86)(`${successPercentage}% of tests passed...`));
         } else if (successPercentage < 90) {
-            log(chalk.yellow(`${successPercentage}% of tests passed...`));
+            log(chalk.rgb(255, 150, 79)(`${successPercentage}% of tests passed...`));
         } else {
             log(chalk.green(`${successPercentage}% of tests passed...`));
         }
