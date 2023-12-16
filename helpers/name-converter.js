@@ -1,20 +1,27 @@
-const snackNameForTest = (name, difficulty = 'easy') => {
-    return toCamelCase(prefixDifficulty(name, difficulty));
+const snackNameForTest = (string, difficulty = 'easy') => {
+    return prefixDifficulty(toCamelCase(string), difficulty);
 }
 
-const prefixDifficulty = (name, difficulty = 'easy') => {
-    return `${difficultyChecker(difficulty)}${capitalize(name)}`;
+const prefixDifficulty = (string, difficulty = 'easy') => {
+    return `${difficultyChecker(difficulty)}${capitalize(string)}`;
 }
 
-const toCamelCase = (name) => {
-    const words = name.split('-');
-    let camelCaseName = words[0];
+const toCamelCase = (string) => {
 
-    if (words.length > 1) {
-        camelCaseName = words.map((substring, i) => i === 0 ? substring : capitalize(substring)).join('');
+    if (/^[a-z][A-Za-z0-9]*$/.test(string)) {
+        return string.replace(/[0-9]/g, '');
     }
 
-    return camelCaseName;
+    if (/^[A-Z0-9]*$/.test(string)) {
+        return string.toLowerCase().replace(/[0-9]/g, '');
+    }
+
+    if (/^[A-Z][A-Za-z0-9]*$/.test(string)) {
+        return string.charAt(0).toLowerCase() + string.slice(1).replace(/[0-9]/g, '');
+    }
+
+    return string.toLowerCase().replace(/[^a-zA-Z0-9]+(.)/g, (match, chr) => chr.toUpperCase()).replace(/[0-9]/g, '');
+
 }
 
 const capitalize = (string) => {
@@ -22,14 +29,13 @@ const capitalize = (string) => {
 }
 
 const toKebabCase = (string) => {
-    return string.replace(/([A-Z])/g, '-$1').toLowerCase();
+    return string.replace(/([A-Z])/g, '-$1').replace(/(^[-])|([0-9])/g, '').toLowerCase();
 }
 
 const difficultyChecker = (string) => {
-    let prefix = difficultyContract(string);
+    const prefix = difficultyContract(string);
     if (!['e', 'm', 'h'].includes(prefix)) {
-        prefix = 'e';
-        throw new Error('The selected difficulty is not available. Using default level: "easy".');
+        throw new Error('The selected difficulty is not valid. Use only: easy, medium, hard.');
     }
     return prefix;
 }
@@ -48,7 +54,7 @@ const difficultyTranslator = (letter) => {
         m: 'medium',
         h: 'hard'
     };
-    return map[letter];
+    return map[letter.toLowerCase()];
 }
 
-export { snackNameForTest, toKebabCase, difficultyExpand };
+export { snackNameForTest, prefixDifficulty, toCamelCase, capitalize, toKebabCase, difficultyChecker, difficultyContract, difficultyExpand, difficultyTranslator };
