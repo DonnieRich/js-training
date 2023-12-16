@@ -11,7 +11,8 @@ const createScaffolding = async (snackName, difficulty) => {
         throw new Error(`A snack named ${snackName} for difficulty level ${difficulty} already exist! Create a different snack or change the snack's name`);
     } catch (err) {
         if (err.code === 'ENOENT') {
-            await fs.mkdir(`./snacks/${difficulty}/${snackName}`);
+
+            await fs.mkdir(`./snacks/${difficulty}/${snackName}`, { recursive: true });
             await fs.mkdir(`./snacks/${difficulty}/${snackName}/__tests__`);
             await fs.mkdir(`./snacks/${difficulty}/${snackName}/.solution`);
 
@@ -28,6 +29,7 @@ const createScaffolding = async (snackName, difficulty) => {
 
             console.log(chalk.green('📑  Stubs snack files copied...'));
             console.log(chalk.green(`Go inside snacks/${difficulty}/${snackName} to start creating your snack!`));
+
         } else {
             console.log(chalk.red(err.message));
             throw new Error(err.message);

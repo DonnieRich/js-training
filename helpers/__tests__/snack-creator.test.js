@@ -49,6 +49,35 @@ describe('snackCreator', () => {
         expect(consoleLogSpy).toHaveBeenCalledTimes(3);
     });
 
+    it('should create a new snack medium/new-snack even if difficulty directory does not exist', async () => {
+
+        vol.fromJSON(
+            {
+                [`${process.cwd()}/stubs/snack/snack.js`]: 'stubSnackContent',
+                [`${process.cwd()}/stubs/snack/__tests__/snack.test.js`]: 'stubSnackContent for snackNameStub',
+                [`${process.cwd()}/stubs/snack/.solution/snack.js`]: 'stubSnackSolution',
+                [`${process.cwd()}/snacks/easy/existing-snack/snack.js`]: 'existingSnack',
+                [`${process.cwd()}/snacks/easy/existing-snack/.solution/snack.js`]: 'existingSnackSolution',
+                [`${process.cwd()}/snacks/easy/existing-snack/__tests__/snack.test.js`]: 'existingSnackTests'
+            }
+        );
+
+        vol.mkdirSync(process.cwd(), { recursive: true });
+        await createScaffolding('new-snack', 'medium');
+
+        expect(vol.readdirSync(`${process.cwd()}/snacks/medium`)).toContain('new-snack');
+        expect(vol.readdirSync(`${process.cwd()}/snacks/medium`)).toHaveLength(1);
+
+        expect(vol.readdirSync(`${process.cwd()}/snacks/medium/new-snack`)).toHaveLength(3);
+        expect(vol.readdirSync(`${process.cwd()}/snacks/medium/new-snack`)).toContain('__tests__');
+        expect(vol.readdirSync(`${process.cwd()}/snacks/medium/new-snack`)).toContain('.solution');
+        expect(vol.readdirSync(`${process.cwd()}/snacks/medium/new-snack`)).toContain('snack.js');
+
+        expect(vol.readFileSync(`${process.cwd()}/snacks/medium/new-snack/__tests__/snack.test.js`, 'utf8')).toEqual('stubSnackContent for mNewSnack');
+
+        expect(consoleLogSpy).toHaveBeenCalledTimes(3);
+    });
+
     it('should throw an error since easy/existing-snack already exist', async () => {
 
         vol.fromJSON(
