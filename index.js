@@ -48,12 +48,5 @@ if (options.createSnack) {
     createScaffolding(snackName, difficulty);
 }
 if (options.help) {
-    log(chalk.blue(`
-    To use this package you have to read the info for the snack you want to solve, add your code and then run the test for that snack.
-    For example:
-        - open snacks/easy/multi-sum/snack.js
-        - read carefully the instructions with the input/output instructions
-        - add your code in the solution function (NOTE: the function should return your solution)
-        - run the corresponding test and check if your solution pass all the test cases
-    `));
+    log(chalk.blue(`Read the ./README.md file to find how to start your training!`));
 }
