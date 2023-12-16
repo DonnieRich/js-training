@@ -1,3 +1,4 @@
+import { describe, test, expect } from 'vitest';
 let snack;
 
 if (process.env.NODE_ENV == "training") {

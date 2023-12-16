@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import * as nameConverter from '../name-converter';
 
 describe('nameConverter test suite', () => {

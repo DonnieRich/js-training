@@ -8,10 +8,10 @@
     },
     "type": "module",
     "scripts": {
-        "test": "cross-env NODE_ENV='training' node --experimental-vm-modules node_modules/jest/bin/jest.js --t ",
-        "ci": "cross-env NODE_ENV='development' node --experimental-vm-modules node_modules/jest/bin/jest.js --t ",
-        "full-ci": "cross-env NODE_ENV='development' node --experimental-vm-modules node_modules/jest/bin/jest.js",
-        "common-test": "jest ./__tests__"
+        "test": "cross-env NODE_ENV='training' node vitest --t ",
+        "ci": "cross-env NODE_ENV='development' node vitest --t ",
+        "full-ci": "cross-env NODE_ENV='development' node vitest",
+        "common-test": "vitest ./__tests__"
     },
     "keywords": [
         "js"
@@ -22,18 +22,11 @@
         "@babel/core": "^7.23.5",
         "@gmrchk/cli-testing-library": "^0.1.2",
         "cross-env": "^7.0.3",
-        "jest": "^29.7.0",
-        "memfs": "^4.6.0"
+        "memfs": "^4.6.0",
+        "vitest": "^1.0.4"
     },
     "dependencies": {
         "chalk": "^5.3.0",
         "commander": "^11.1.0"
-    },
-    "jest": {
-        "testEnvironment": "jest-environment-node",
-        "transform": {},
-        "reporters": [
-            "./helpers/jest-reporter.js"
-        ]
     }
 }

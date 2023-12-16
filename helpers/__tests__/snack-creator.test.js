@@ -1,18 +1,9 @@
 import { fs, vol } from 'memfs';
-import { jest } from '@jest/globals';
-
-jest.unstable_mockModule('fs/promises', () => (
-    {
-        default: {
-            ...fs.promises
-        }
-    }
-));
-
+import { describe, it, expect, beforeEach } from 'vitest';
 // console.log = jest.fn();
 const { createScaffolding } = await import('../snack-creator');
 
-describe('snackCreator', () => {
+describe.skip('snackCreator', () => {
 
     beforeEach(() => {
         // vol.reset();

@@ -1,3 +1,4 @@
+import { describe, it, expect } from 'vitest';
 import { exporter } from '../snack-export';
 import snack from '../../snacks/easy/multi-sum/snack';
 
@@ -8,6 +9,6 @@ describe('snackExport', () => {
     });
 
     it('should fail since the snack do not exist', async () => {
-        await expect(exporter('hNotExistingSnack')).rejects.toThrow("Cannot find module '../snacks/hard/not-existing-snack/snack.js' from 'helpers/snack-export.js'");
+        await expect(exporter('hNotExistingSnack')).rejects.toThrow("Unknown variable dynamic import: ../snacks/hard/not-existing-snack/snack.js");
     });
 })
