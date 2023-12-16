@@ -39,8 +39,10 @@ describe('snackCreator', () => {
         expect(vol.readdirSync(`${process.cwd()}/snacks/easy`)).toContain('new-snack');
         expect(vol.readdirSync(`${process.cwd()}/snacks/easy`)).toHaveLength(2);
 
-        expect(vol.readdirSync(`${process.cwd()}/snacks/easy/new-snack`)).toEqual(['__tests__', '.solution', 'snack.js']);
         expect(vol.readdirSync(`${process.cwd()}/snacks/easy/new-snack`)).toHaveLength(3);
+        expect(vol.readdirSync(`${process.cwd()}/snacks/easy/new-snack`)).toContain('__tests__');
+        expect(vol.readdirSync(`${process.cwd()}/snacks/easy/new-snack`)).toContain('.solution');
+        expect(vol.readdirSync(`${process.cwd()}/snacks/easy/new-snack`)).toContain('snack.js');
 
         expect(vol.readFileSync(`${process.cwd()}/snacks/easy/new-snack/__tests__/snack.test.js`, 'utf8')).toEqual('stubSnackContent for eNewSnack');
 
