@@ -8,9 +8,9 @@
     },
     "type": "module",
     "scripts": {
-        "test": "cross-env NODE_ENV='training' node vitest --t ",
-        "ci": "cross-env NODE_ENV='development' node vitest --t ",
-        "full-ci": "cross-env NODE_ENV='development' node vitest",
+        "test": "cross-env NODE_ENV='training' vitest --t ",
+        "ci": "cross-env NODE_ENV='development' vitest --t ",
+        "full-ci": "cross-env NODE_ENV='development' vitest",
         "common-test": "vitest ./__tests__"
     },
     "keywords": [
