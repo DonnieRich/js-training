@@ -11,7 +11,7 @@
         "test": "cross-env NODE_ENV='training' vitest --t ",
         "ci": "cross-env NODE_ENV='development' vitest --t ",
         "full-ci": "cross-env NODE_ENV='development' vitest",
-        "common-test": "vitest ./__tests__"
+        "common-test": "vitest helpers"
     },
     "keywords": [
         "js"
