@@ -32,8 +32,8 @@ export default class CustomReporter extends DefaultReporter {
              */
             testRan.tasks.forEach(suite => {
 
-                totalTests = suite.tasks.length;
                 suite.tasks.forEach(task => {
+                    totalTests++;
                     let reasons = '';
                     let message = `${task.name} ${task.result.state.toUpperCase()} `;
 
