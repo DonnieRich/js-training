@@ -1,30 +1,68 @@
 import { fs, vol } from 'memfs';
-import { describe, it, expect, beforeEach } from 'vitest';
-// console.log = jest.fn();
-const { createScaffolding } = await import('../snack-creator');
+import { describe, it, expect, beforeEach, afterEach, vi } from 'vitest';
+import { createScaffolding } from '../snack-creator';
 
-describe.skip('snackCreator', () => {
+vi.mock('fs/promises', () => {
+    return {
+        default: fs.promises
+    }
+})
+
+let consoleLogSpy;
+
+describe('snackCreator', () => {
 
     beforeEach(() => {
-        // vol.reset();
+        vol.reset();
+        consoleLogSpy = vi.spyOn(console, 'log').mockImplementation(() => { });
     });
 
-    it('should work', async () => {
+    afterEach(() => {
+        vi.restoreAllMocks();
+    });
+
+    it('should create a new snack easy/new-snack', async () => {
 
         vol.fromJSON(
             {
-                [`${process.cwd()}/stubs/snack/snack.js`]: 'maremma',
-                [`${process.cwd()}/stubs/snack/__tests__/snack.test.js`]: 'maremmaTest',
-                [`${process.cwd()}/stubs/snack/.solution/snack.js`]: 'maremmaSolution',
-                // [`${process.cwd()}/snacks/easy/no-problem/snack.js`]: 'ERR',
-                [`${process.cwd()}/snacks/easy/nosweat.js`]: 'z'
+                [`${process.cwd()}/stubs/snack/snack.js`]: 'stubSnackContent',
+                [`${process.cwd()}/stubs/snack/__tests__/snack.test.js`]: 'stubSnackContent for snackNameStub',
+                [`${process.cwd()}/stubs/snack/.solution/snack.js`]: 'stubSnackSolution',
+                [`${process.cwd()}/snacks/easy/existing-snack/snack.js`]: 'existingSnack',
+                [`${process.cwd()}/snacks/easy/existing-snack/.solution/snack.js`]: 'existingSnackSolution',
+                [`${process.cwd()}/snacks/easy/existing-snack/__tests__/snack.test.js`]: 'existingSnackTests'
             }
         );
         vol.mkdirSync(process.cwd(), { recursive: true });
-        console.log(vol.toJSON())
-        await createScaffolding('no-problem', 'easy');
-        console.log(vol.toJSON())
-        // expect(vol.toJSON()).toMatchSnapshot();
-    })
+        await createScaffolding('new-snack', 'easy');
 
-})
+        expect(vol.readdirSync(`${process.cwd()}/snacks/easy`)).toContain('new-snack');
+        expect(vol.readdirSync(`${process.cwd()}/snacks/easy`)).toHaveLength(2);
+
+        expect(vol.readdirSync(`${process.cwd()}/snacks/easy/new-snack`)).toEqual(['__tests__', '.solution', 'snack.js']);
+        expect(vol.readdirSync(`${process.cwd()}/snacks/easy/new-snack`)).toHaveLength(3);
+
+        expect(vol.readFileSync(`${process.cwd()}/snacks/easy/new-snack/__tests__/snack.test.js`, 'utf8')).toEqual('stubSnackContent for eNewSnack');
+
+        expect(consoleLogSpy).toHaveBeenCalledTimes(3);
+    });
+
+    it('should throw an error since easy/existing-snack already exist', async () => {
+
+        vol.fromJSON(
+            {
+                [`${process.cwd()}/stubs/snack/snack.js`]: 'stubSnackContent',
+                [`${process.cwd()}/stubs/snack/__tests__/snack.test.js`]: 'stubSnackContent for snackNameStub',
+                [`${process.cwd()}/stubs/snack/.solution/snack.js`]: 'stubSnackSolution',
+                [`${process.cwd()}/snacks/easy/existing-snack/snack.js`]: 'existingSnack',
+                [`${process.cwd()}/snacks/easy/existing-snack/.solution/snack.js`]: 'existingSnackSolution',
+                [`${process.cwd()}/snacks/easy/existing-snack/__tests__/snack.test.js`]: 'existingSnackTests'
+            }
+        );
+        vol.mkdirSync(process.cwd(), { recursive: true });
+        await expect(() => createScaffolding('existing-snack', 'easy')).rejects.toThrowError(
+            /^A snack named existing-snack for difficulty level easy already exist! Create a different snack or change the snack's name$/
+        );
+
+    });
+});
