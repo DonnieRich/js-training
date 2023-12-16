@@ -10,7 +10,8 @@
     "scripts": {
         "test": "cross-env NODE_ENV='training' node --experimental-vm-modules node_modules/jest/bin/jest.js --t ",
         "ci": "cross-env NODE_ENV='development' node --experimental-vm-modules node_modules/jest/bin/jest.js --t ",
-        "full-ci": "cross-env NODE_ENV='development' node --experimental-vm-modules node_modules/jest/bin/jest.js"
+        "full-ci": "cross-env NODE_ENV='development' node --experimental-vm-modules node_modules/jest/bin/jest.js",
+        "common-test": "jest ./__tests__"
     },
     "keywords": [
         "js"
@@ -21,7 +22,8 @@
         "@babel/core": "^7.23.5",
         "@gmrchk/cli-testing-library": "^0.1.2",
         "cross-env": "^7.0.3",
-        "jest": "^29.7.0"
+        "jest": "^29.7.0",
+        "memfs": "^4.6.0"
     },
     "dependencies": {
         "chalk": "^5.3.0",

@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`snackCreator should work 1`] = `
+{
+  "/WDA/Lavori/js-training/snacks/easy/no-problem/snack.js": "ERR",
+  "/WDA/Lavori/js-training/snacks/easy/nosweat.js": "z",
+  "/WDA/Lavori/js-training/stubs/snack/.solution/snack.js": "maremmaSolution",
+  "/WDA/Lavori/js-training/stubs/snack/__tests__/snack.test.js": "maremmaTest",
+  "/WDA/Lavori/js-training/stubs/snack/snack.js": "maremma",
+}
+`;
