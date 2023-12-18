@@ -41,7 +41,7 @@ if (options.infoSnack) {
             log(chalk.green(`To test your solution for ${snackName} run the following command:\nnpm run test -- ${snackName}`));
         })
         .catch(error => {
-            log(chalk.red(`Cannot find a snack namend ${options.infoSnack} for the selected difficulty level (${difficulty})`));
+            log(chalk.red(`Cannot find a snack named ${options.infoSnack} for the selected difficulty level (${difficulty})`));
         });
 }
 if (options.createSnack) {
