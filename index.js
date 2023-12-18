@@ -15,7 +15,7 @@ program
     .addOption(new Option('-i, --info-snack <name>', 'Get info for the selected snack'))
     .addOption(new Option('-c, --create-snack <name>', 'Create the scaffolding for a new snack'))
     .addOption(new Option('-d, --difficulty <difficulty>', 'Select snack difficulty').choices(['easy', 'e', 'medium', 'm', 'hard', 'h']).preset('easy'))
-    .addOption(new Option('-h, --help', 'To use this package you have to read the info for the snack you want to solve, add your code and then run the test for that snack'));
+    .addOption(new Option('-h, --help', 'Get info about this repository'));
 
 program
     .configureOutput({
