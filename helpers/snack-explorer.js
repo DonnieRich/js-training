@@ -12,7 +12,7 @@ const listAllSnacks = async (difficulty) => {
             console.log(`Currently there are no ${difficulty} snacks availables`)
         }
     } catch (err) {
-        console.log(err);
+        throw new Error(err.message);
     }
 }
 
