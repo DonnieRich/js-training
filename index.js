@@ -55,5 +55,5 @@ if (options.createSnack) {
     createScaffolding(snackName, difficulty);
 }
 if (options.help) {
-    log(chalk.blue(`Read the ./README.md file to find how to start your training!`));
+    log(chalk.blue(`Check the ./README.md file to find how to start your training!`));
 }
