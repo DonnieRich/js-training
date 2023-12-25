@@ -1,10 +1,10 @@
 
-const solution = (a) => {
+const solution = (array) => {
     // This is the simplest solution
     // We will use the sort() method to order the array
     // Then we'll take the first element of the array
 
-    a.sort((a, b) => {
+    array.sort((a, b) => {
         // If a - b >= 1 it means a is bigger than b
         // If a - b <= -1 it means b is bigger than a
         // If a - b = 0 it means a and b are equals
@@ -22,7 +22,7 @@ const solution = (a) => {
     })
 
     // Now we just return the first element of the array
-    return a[0];
+    return array[0];
 };
 
 
